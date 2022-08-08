@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'styles/css/update.min.css' %}">
+  <title>Edit task</title>
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <div class="header__title title">edit task</div>
+    </div>
+  </header>
+  <main>
+    <div class="container">
+      <div class="form-wrapper">
+        <form class="form" action="" method="post">
+            {% csrf_token %}
+          <label for="">Title</label>
+            {{ form.title }}
+{#          <input class="form__title" name="title" type="text" placeholder="Task title" minlength="3" maxlength="36">#}
+          <p data-title-number>0/36</p>
+          <label for="">Description</label>
+            {{ form.description }}
+{#          <textarea class="form-desc" name="description" data-autoresize contenteditable placeholder="What about this task" maxlength="200"></textarea>#}
+          <p data-description-number>0/200</p>
+          <button type="submit">Save</button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script type="text/javascript" src="{% static 'js/utils/letterCounter.js' %}"></script>
+</body>
+
+</html>

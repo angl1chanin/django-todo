@@ -1,0 +1,24 @@
+@import 'base';
+@import 'components/title';
+@import 'components/form';
+@include page_prepare;
+
+header {
+  display: flex;
+  justify-content: center;
+}
+
+.header__title {
+  margin-bottom: 50px;
+}
+
+.form-wrapper {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.form {
+  padding: 20px 40px;
+  @include form;
+}

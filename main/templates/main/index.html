@@ -1,0 +1,148 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'styles/css/index.min.css' %}">
+    <title>Django TODO</title>
+</head>
+
+<body>
+    <header class="header">
+        <p class="header__title title">TODO<br><span>application</span></p>
+    </header>
+    <main class="app">
+        <div class="container">
+            <div class="app__inner">
+                <div class="app__header">
+                    <div class="username__dropdown">
+                        <p class="username">{{ request.user }}</p>
+                        <div class="username__content">
+                            <a href="/account/logout">logout</a>
+                        </div>
+                    </div>
+                    <!-- <span class="date">12/11/2022</span> -->
+                    <p class="info">{{ tasks.count }} tasks</p>
+                </div>
+                <ul class="app__items">
+                    {% for task in tasks %}
+                    <li class="app__item">
+                        <div class="item__preview unselectable">
+                            <form method="post" action=".">
+                                {% csrf_token %}
+                                <input type="checkbox" onChange="this.form.submit()" name="complete">
+                                <input type="hidden" name="task-id" value="{{ task.id }}">
+                            </form>
+                            <span class="item__title">{{ task.title }}</span>
+                            <div class="item__context item__context--desktop">
+                                <img class="item__icon item__icon--dropdown"
+                                    src="{% static 'assets/icons/down-arrow.svg' %}" alt="dropdown" />
+                                <a href="{% url 'main:update-task' task.id %}"><img class="item__icon"
+                                        src="{% static 'assets/icons/edit.svg' %}" alt="edit" /></a>
+                                <a class="app_remove-task" href="#" onclick="setTaskId({{task.id}})"><img
+                                        class="item__icon" src="{% static 'assets/icons/remove.svg' %}"
+                                        alt="remove" /></a>
+                                <p class="item__datetime">{{ task.date|time }}</p>
+                            </div>
+                            <div class="item__context--mobile">
+                                <span class="burger-line"></span>
+                                <span class="burger-line"></span>
+                                <div class="item-mobile__menu">
+                                    <ul class="item-mobile__content ">
+                                        <li class="item-mobile__btn"><a href="{% url 'main:update-task' task.id %}"><img
+                                                    class="item__icon" src="{% static 'assets/icons/edit.svg' %}"
+                                                    alt="edit" /></a></li>
+                                        <li class="item-mobile__btn"><a class="app_remove-task" href="#"><img
+                                                    class="item__icon" src="{% static 'assets/icons/remove.svg' %}"
+                                                    alt="remove" /></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="item__description">
+                            <li>
+                                <p>{{ task.description }}</p>
+                            </li>
+                        </ul>
+                    </li>
+                    {% empty %}
+                    <li class="app__item">
+                        <div class="item__preview unselectable">
+                            <p class="item__title">No created task yet</p>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <div class="app__create">
+                    <button class="app__button">+</button>
+                    <div class="form-wrapper">
+                        <form class="app__form" name="create_task" action="" method="post">
+                            {% csrf_token %}
+                            <label for="">Title</label>
+                            <input class="form__title" id="id_title" name="title" type="text" placeholder="Task title"
+                                minlength="3" maxlength="36">
+                            <p data-title-number>0/36</p>
+                            <label for="">Description</label>
+                            <textarea class="form-desc" id="id_description" name="description" data-autoresize
+                                contenteditable placeholder="What about this task" maxlength="200"></textarea>
+                            <p data-description-number>0/200</p>
+                            <button type="submit">Add</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="completed">
+                <div class="app__inner">
+                    <div class="app__header">
+                        <span>Completed tasks</span>
+                    </div>
+                    <ul class="app__items">
+                        {% for completed_task in completed_tasks %}
+                        <li class="app__item app__item--completed">
+                            <div class="item__preview item__preview--completed unselectable">
+                                <span class="item__title item__title--completed">{{ completed_task.title }}</span>
+                                <p class="item__datetime">{{ completed_task.date|time }}</p>
+                            </div>
+                        </li>
+                        {% empty %}
+                        <li class="app__item app__item--completed">
+                            <div class="item__preview item__preview--completed unselectable">
+                                <p class="item__title">No completed tasks</p>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+    <section class="modal__section">
+        <div class="modal">
+            <div class="modal__content">
+                <form class="modal__form" action="" method="post">
+                    {% csrf_token %}
+                    <p class="modal__text">Are you sure you want to delete this task?</p>
+                    <hr>
+                    <button class="modal__btn" type="submit" name="remove-task">Yes</button>
+                    <button class="modal__btn" type="button" onclick="modal.classList.toggle('modal__show')"
+                        value="no">No</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/modal.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/utils/letterCounter.js' %}"></script>
+</body>
+
+</html>

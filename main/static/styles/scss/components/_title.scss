@@ -1,0 +1,53 @@
+.title {
+  font-size: 32px;
+  text-transform: uppercase;
+  text-align: center;
+  color: rgb(23, 23, 23);
+  font-weight: 300;
+  letter-spacing: 1.4px;
+  font-family: 'Raleway', sans-serif;
+  transition: all .3s ease;
+  span {
+    text-transform: uppercase;
+    font-size: 24px;
+  }
+  &::before {  
+    transform: scaleX(0);
+    transform-origin: bottom right;
+  }
+  &:hover {
+    color: #fff;
+    cursor: default;
+  }
+  &:hover::before {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+  
+  &::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    inset: 0 0 0 0;
+    background-color: rgba(0,0,0,.85);
+    z-index: -1;
+    transition: transform .3s ease;
+  }
+  
+  & {
+    position: relative;
+  }
+  
+  html {
+    block-size: 100%;
+    inline-size: 100%;
+  }
+  
+  @media (orientation: landscape) {
+    body {
+      grid-auto-flow: column;
+    }
+  }
+  
+}

@@ -1,0 +1,130 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{% static 'styles/css/auth.min.css' %}">
+  <title>Welcome</title>
+</head>
+
+<body>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <header class="header">
+    <div class="container">
+      <p class="header__title title">Welcome</p>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <div class="auth">
+
+        <section id="formHolder">
+
+          <div class="row">
+
+            <!-- Brand Box -->
+            <div class="col-sm-6 brand">
+              <a href="https://github.com/slicetopieces" target="_blank" class="logo"><img src="{% static 'assets/icons/github.svg' %}" alt="github"></a>
+
+              <div class="heading">
+                <h2>hello</h2>
+                <p>let's try this todo app</p>
+              </div>
+
+              <div class="success-msg">
+                <p>Great! You are one of our members now</p>
+                <a href="#" class="profile">Your Profile</a>
+              </div>
+            </div>
+
+
+            <!-- Form Box -->
+            <div class="col-sm-6 form">
+
+              <!-- Login Form -->
+              <div class="login form-peice switched">
+                <form class="login-form" action="." method="post" name="login" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" name="username" id="username" class="name">
+                  </div>
+
+                  <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" name="password" id="loginPassword" required>
+                  </div>
+
+                  <div class="CTA">
+                    <input type="submit" value="Login">
+                    <a href="#" class="switch">I'm New</a>
+                  </div>
+                    {% if messages %}
+                        {% for message in messages %}
+                        <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+                        {% endfor %}
+                    {% endif %}
+                </form>
+              </div>
+              <!-- End Login Form -->
+
+
+              <!-- Signup Form -->
+              <div class="signup form-peice">
+                <form class="signup-form" action="." method="post" name="signup" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" name="username" id="name" class="name" required>
+                    <span class="error"></span>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="password1">Password</label>
+                    <input type="password" name="password1" id="password" class="pass" required>
+                    <span class="error"></span>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="password2">Confirm Password</label>
+                    <input type="password" name="password2" id="passwordCon" class="passConfirm" required>
+                    <span class="error"></span>
+                  </div>
+
+                  <div class="CTA">
+                    <input type="submit" value="Signup Now" id="submit">
+                    <a href="#" class="switch">I have an account</a>
+                  </div>
+                    {% if messages %}
+                        {% for message in messages %}
+                        <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+                        {% endfor %}
+                    {% endif %}
+                </form>
+              </div>
+              <!-- End Signup Form -->
+            </div>
+          </div>
+
+        </section>
+        
+      </div>
+    </div>
+  </main>
+  <!-- login/signup card from *lower* -->
+  <!-- https://codepen.io/Mhmdhasan/pen/JbJzZv -->
+
+
+
+  <script src="{% static 'js/form.js' %}"></script>
+
+</body>
+
+</html>
