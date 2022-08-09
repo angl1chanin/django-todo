@@ -15,15 +15,15 @@ Run app
   python manage.py runserver
 ```
 ```
-  Default credentials
+  Default superuser credentials
   admin:admin
 ```
 ## Screenshots
 
-[![Screenshot.png](https://i.postimg.cc/mr817cv6/Screenshot-2022-08-08-at-20-38-22.png)](https://postimg.cc/KK3Y2Yvn)
+[![Screenshot-2022-08-09-at-16-52-07.png](https://i.postimg.cc/63DfbmSS/Screenshot-2022-08-09-at-16-52-07.png)](https://postimg.cc/sQ4Wvw39)
 
-[![Screenshot-2022-08-08-at-20-40-56.png](https://i.postimg.cc/4NxfhLfZ/Screenshot-2022-08-08-at-20-40-56.png)](https://postimg.cc/G96wWjTS)
+[![Screenshot-2022-08-09-at-16-52-48.png](https://i.postimg.cc/yNCBB1RY/Screenshot-2022-08-09-at-16-52-48.png)](https://postimg.cc/v4hCtdXp)
 
-[![Screenshot-2022-08-08-at-20-41-19.png](https://i.postimg.cc/g08mP1Dy/Screenshot-2022-08-08-at-20-41-19.png)](https://postimg.cc/Mc6h7PgX)
+[![Screenshot-2022-08-09-at-16-53-33.png](https://i.postimg.cc/Hn6XDvPd/Screenshot-2022-08-09-at-16-53-33.png)](https://postimg.cc/sGZv5mrN)
 
-[![Screenshot-2022-08-08-at-20-41-26.png](https://i.postimg.cc/0Qvx5ZWT/Screenshot-2022-08-08-at-20-41-26.png)](https://postimg.cc/f381B7hC)
+[![Screenshot-2022-08-09-at-16-54-05.png](https://i.postimg.cc/SsynS79s/Screenshot-2022-08-09-at-16-54-05.png)](https://postimg.cc/VSVf4tDQ)
