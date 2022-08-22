@@ -11,7 +11,7 @@ Run app
 ```bash
   git clone https://github.com/slicetopieces/todoapp-django.git
   cd todoapp-django
-  source venv/bin/activate
+  pip install -r requirements.txt
   python manage.py runserver
 ```
 ```
