@@ -2,8 +2,42 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  color: #000;
-  border-bottom: 1px solid rgb(218, 218, 218);
+  border-bottom: 1px solid var(--task-divider);
+
+  &__complete {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    path {
+      transition: fill 0.2s linear;
+    }
+
+    &:hover {
+      path {
+        fill: rgb(35, 184, 48);
+      }
+    }
+  }
+
+  &_completed {
+    cursor: pointer;
+    transition: background-color 0.3s linear;
+    background-color: transparent;
+    border: none;
+    width: 100%;
+    font-size: inherit;
+    font-weight: 300;
+
+    &:hover {
+      background-color: rgb(218, 218, 218);
+    }
+  }
 
   &:last-child {
     border-bottom: none;
@@ -12,11 +46,12 @@
   &__preview {
     display: flex;
     position: relative;
+    align-items: center;
     justify-content: space-between;
     padding: 20px;
+    transition: opacity 0.3s linear;
 
-    //TODO: change modificator to underscore
-    &--completed {
+    &_completed {
       justify-content: flex-end;
 
       &::before {
@@ -28,7 +63,7 @@
       content: '';
       width: 5px;
       height: 0;
-      background-color: #f8d57e;
+      background: var(--accent-color);
       transition: all 0.3s ease;
       position: absolute;
       left: 0;
@@ -40,13 +75,48 @@
     }
   }
 
+  &__preview_completed:hover &__title_completed {
+    opacity: 0;
+  }
+
+  &__recovery {
+    color: var(--black-color);
+    width: 100%;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.4s linear;
+
+    svg {
+      height: 24px;
+      position: absolute;
+      right: 25px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: none;
+    }
+  }
+
+  &__empty {
+    color: var(--black-color);
+    width: 100%;
+    text-align: center;
+  }
+
+  &__preview_completed:hover &__recovery {
+    opacity: 1;
+
+    svg {
+      display: block;
+    }
+  }
+
   &__title {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
     // width: 100%;
     text-align: center;
-    color: #000;
+    color: var(--black-color);
 
     &_completed {
       text-decoration: line-through;
@@ -56,13 +126,13 @@
   &__manage {
     display: flex;
     align-items: center;
-    column-gap: 20px;
+    column-gap: 2rem;
 
-    &_desktop {
-      @media (max-width: 768px) {
-        display: none;
-      }
-    }
+    //&_desktop {
+    //  @media (max-width: 768px) {
+    //    display: none;
+    //  }
+    //}
   }
 
   &__icon {
@@ -73,6 +143,7 @@
 
   &__edit-btn {
     cursor: pointer;
+    height: 18px;
   }
 
   &__remove-btn {
@@ -85,12 +156,15 @@
 
   &__datetime {
     position: relative;
+    color: var(--black-color);
+    cursor: default;
   }
 
   &__description {
     max-height: 0;
     overflow: hidden;
-    background-color: #bbbbbb;
+    background-color: var(--bg-desc);
+    color: var(--black-color);
     transition: all 0.3s ease-in-out;
 
     li {
@@ -102,4 +176,34 @@
       word-break: break-all;
     }
   }
+
+  &__input {
+    border: none;
+  }
+}
+
+[data-tooltip] {
+  position: relative; /* Относительное позиционирование */
+}
+
+[data-tooltip]::after {
+  content: attr(data-tooltip); /* Выводим текст */
+  position: absolute; /* Абсолютное позиционирование */
+  width: 20rem; /* Ширина подсказки */
+  right: 0;
+  top: 0; /* Положение подсказки */
+  background: var(--white-color); /* Синий цвет фона */
+  color: var(--text-color); /* Цвет текста */
+  border-radius: 0.6rem;
+  padding: 0.5em; /* Поля вокруг текста */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Параметры тени */
+  pointer-events: none; /* Подсказка */
+  opacity: 0; /* Подсказка невидима */
+  transition: 0.4s; /* Время появления подсказки */
+  z-index: 3;
+}
+
+[data-tooltip]:hover::after {
+  opacity: 1; /* Показываем подсказку */
+  top: 2em; /* Положение подсказки */
 }

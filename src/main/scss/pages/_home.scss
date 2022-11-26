@@ -1,0 +1,116 @@
+.app {
+  &__container {
+    min-width: 320px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 50px;
+  }
+
+  &__incomplete {
+    @include app_window;
+  }
+
+  &__completed {
+    @include app_window;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: var(--accent-color);
+    border-bottom: 1px solid rgb(218, 218, 218);
+    border-radius: 10px 10px 0 0;
+    font-size: 18px;
+    color: #000;
+    font-weight: 300;
+    text-transform: uppercase;
+  }
+
+  &__items {
+    &:last-child {
+      a {
+        &:not(:last-child) {
+          border-bottom: 1px solid var(--task-divider);
+        }
+      }
+    }
+  }
+
+  &__create {
+    padding: 10px 10px;
+    text-align: center;
+    position: relative;
+    background: var(--accent-color);
+  }
+
+  &__button {
+    margin: 0;
+    border: none;
+    background-color: transparent;
+    color: var(--black-color);
+    transition: all 0.3s ease;
+    cursor: pointer;
+
+    svg {
+      width: 25px;
+    }
+  }
+
+  &__page {
+    svg {
+      height: 2.4rem;
+    }
+
+    &_prev {
+      svg {
+        transform: rotate(180deg);
+      }
+
+      position: absolute;
+      left: 40%;
+      margin-right: 3rem;
+    }
+
+    &_next {
+      svg {
+        transform: rotate(0deg);
+      }
+
+      position: absolute;
+      right: 40%;
+      margin-left: 3rem;
+    }
+  }
+
+  &__form {
+    max-height: 0;
+    overflow: hidden;
+    position: absolute;
+    top: -230px;
+    left: 50%;
+    z-index: 3;
+    transform: translateX(-50%);
+    transition: max-height 0.6s ease;
+  }
+
+  &__clear-btn {
+    font-weight: 300;
+    font-size: 16px;
+    text-transform: uppercase;
+
+    background-color: var(--white-color);
+    color: var(--text-color);
+    border: none;
+    padding: 10px 25px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: box-shadow .2s linear, transform .2s linear;
+
+    &:hover {
+      box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+      transform: translateY(-2px);
+    }
+  }
+}

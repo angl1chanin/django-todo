@@ -4,24 +4,46 @@
   margin: 0;
 }
 
-body {
-  font-family: 'Open Sans', sans-serif;
-  font-weight: 300;
-  font-size: 16px;
-  color: #fff;
-  padding-top: 50px;
-  background-color: #ecbe7a;
-}
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
 hr,
 ul,
 li,
 p {
   margin: 0;
   padding: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+html {
+  font-size: 10px;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  font-size: 1.6rem;
+  letter-spacing: 0.02rem;
+  color: var(--text-color);
+  padding-top: 5rem;
+  background: linear-gradient(247.32deg, #FFF7E3 0%, #FAF0FF 100%);
+  padding-bottom: 10rem;
+}
+
+.container {
+  width: min(100% - 3rem, 90rem);
+  margin-inline: auto;
+}
+
+.unselectable {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Chrome/Safari/Opera */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
+}
+
+.block {
+  overflow: hidden;
 }

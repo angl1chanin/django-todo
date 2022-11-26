@@ -1,10 +1,16 @@
 .user {
   position: relative;
   transition: all 0.3s linear;
+  cursor: default;
 
   &:hover {
     z-index: 3;
-    color: #fff;
+
+    .user__content {
+      opacity: 1;
+    }
+
+    color: var(--white-color);
   }
 
   &__name {
@@ -20,22 +26,26 @@
     top: -5px;
     left: -10px;
     min-width: 120%;
+    opacity: 0;
     z-index: -1;
+    transition: opacity .2s;
 
     a {
       text-decoration: none;
       outline: none;
+      display: block;
+      text-align: center;
       color: #000;
-      background-color: #f8d57e;
+      background: var(--white-color);
       padding: 5px;
       border-radius: 10px;
-      transition: background-color 0.3s linear;
       position: relative;
       left: -5px;
+      cursor: pointer;
+      transition: transform .2s linear;
 
       &:hover {
-        background-color: #febb10;
-        cursor: pointer;
+        transform: translateY(-0.2rem);
       }
     }
   }

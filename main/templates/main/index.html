@@ -1,148 +1,133 @@
+{% extends 'base.html' %}
 {% load static %}
-<!doctype html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'styles/css/index.min.css' %}">
-    <title>Django TODO</title>
-</head>
+{% block content %}
 
-<body>
     <header class="header">
         <p class="header__title title">TODO<br><span>application</span></p>
     </header>
+
     <main class="app">
-        <div class="container">
-            <div class="app__inner">
+        <div class="app__container container">
+            <div class="app__incomplete">
                 <div class="app__header">
-                    <div class="username__dropdown">
-                        <p class="username">{{ request.user }}</p>
-                        <div class="username__content">
-                            <a href="/account/logout">logout</a>
+                    <div class="user">
+                        <p class="user__name">{{ request.user }}</p>
+                        <div class="user__content">
+                            <a href="{% url 'account:logout' %}">logout</a>
                         </div>
                     </div>
-                    <!-- <span class="date">12/11/2022</span> -->
-                    <p class="info">{{ tasks.count }} tasks</p>
+                    <p>{{ task_quantity }} tasks</p>
                 </div>
                 <ul class="app__items">
                     {% for task in tasks %}
-                    <li class="app__item">
-                        <div class="item__preview unselectable">
-                            <form method="post" action=".">
-                                {% csrf_token %}
-                                <input type="checkbox" onChange="this.form.submit()" name="complete">
-                                <input type="hidden" name="task-id" value="{{ task.id }}">
-                            </form>
-                            <span class="item__title">{{ task.title }}</span>
-                            <div class="item__context item__context--desktop">
-                                <img class="item__icon item__icon--dropdown"
-                                    src="{% static 'assets/icons/down-arrow.svg' %}" alt="dropdown" />
-                                <a href="{% url 'main:update-task' task.id %}"><img class="item__icon"
-                                        src="{% static 'assets/icons/edit.svg' %}" alt="edit" /></a>
-                                <a class="app_remove-task" href="#" onclick="setTaskId({{task.id}})"><img
-                                        class="item__icon" src="{% static 'assets/icons/remove.svg' %}"
-                                        alt="remove" /></a>
-                                <p class="item__datetime">{{ task.date|time }}</p>
-                            </div>
-                            <div class="item__context--mobile">
-                                <span class="burger-line"></span>
-                                <span class="burger-line"></span>
-                                <div class="item-mobile__menu">
-                                    <ul class="item-mobile__content ">
-                                        <li class="item-mobile__btn"><a href="{% url 'main:update-task' task.id %}"><img
-                                                    class="item__icon" src="{% static 'assets/icons/edit.svg' %}"
-                                                    alt="edit" /></a></li>
-                                        <li class="item-mobile__btn"><a class="app_remove-task" href="#"><img
-                                                    class="item__icon" src="{% static 'assets/icons/remove.svg' %}"
-                                                    alt="remove" /></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <ul class="item__description">
-                            <li>
-                                <p>{{ task.description }}</p>
-                            </li>
-                        </ul>
-                    </li>
+                        {% include './layouts/_task.html' %}
                     {% empty %}
-                    <li class="app__item">
-                        <div class="item__preview unselectable">
-                            <p class="item__title">No created task yet</p>
-                        </div>
-                    </li>
+                        <li class="task">
+                            <div class="task__preview">
+                                <span class="task__empty">No created task yet</span>
+                            </div>
+                        </li>
                     {% endfor %}
                 </ul>
                 <div class="app__create">
-                    <button class="app__button">+</button>
-                    <div class="form-wrapper">
-                        <form class="app__form" name="create_task" action="" method="post">
+                    {% if page_obj.has_previous %}
+                        <a class="app__page app__page_prev" href="?page={{ page_obj.previous_page_number }}">
+                            <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                                 xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                 viewBox="0 0 227.096 227.096"
+                                 style="enable-background:new 0 0 227.096 227.096;" xml:space="preserve">
+                        <g>
+                            <g>
+                                <polygon style="fill:#010002;" points="152.835,39.285 146.933,45.183 211.113,109.373 0,109.373 0,117.723 211.124,117.723 
+			146.933,181.902 152.835,187.811 227.096,113.55 		"/>
+                            </g>
+                        </g>
+                    </svg>
+                        </a>
+                    {% endif %}
+                    <button class="app__button">
+                        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                             xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 455 455"
+                             style="enable-background:new 0 0 455 455;" xml:space="preserve">
+                        <polygon points="455,212.5 242.5,212.5 242.5,0 212.5,0 212.5,212.5 0,212.5 0,242.5 212.5,242.5 212.5,455 242.5,455 242.5,242.5 
+	455,242.5 "/>
+                    </svg>
+                    </button>
+                    {% if page_obj.has_next %}
+                        <a class="app__page app__page_next" href="?page={{ page_obj.next_page_number }}">
+                            <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                                 xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                 viewBox="0 0 227.096 227.096"
+                                 style="enable-background:new 0 0 227.096 227.096;" xml:space="preserve">
+                        <g>
+                            <g>
+                                <polygon style="fill:#010002;" points="152.835,39.285 146.933,45.183 211.113,109.373 0,109.373 0,117.723 211.124,117.723 
+			146.933,181.902 152.835,187.811 227.096,113.55 		"/>
+                            </g>
+                        </g>
+                    </svg>
+                        </a>
+                    {% endif %}
+                    <div class="app__form">
+                        <form class="form-create" name="create_task" action="{% url 'main:home' %}"
+                              method="post">
                             {% csrf_token %}
-                            <label for="">Title</label>
-                            <input class="form__title" id="id_title" name="title" type="text" placeholder="Task title"
-                                minlength="3" maxlength="36">
+                            <label for="{{ task_form.title.id_for_label }}">Title</label>
+                            {{ task_form.title }}
                             <p data-title-number>0/36</p>
-                            <label for="">Description</label>
-                            <textarea class="form-desc" id="id_description" name="description" data-autoresize
-                                contenteditable placeholder="What about this task" maxlength="200"></textarea>
+                            <label for="{{ task_form.description.id_for_label }}">Description</label>
+                            {{ task_form.description }}
                             <p data-description-number>0/200</p>
                             <button type="submit">Add</button>
                         </form>
                     </div>
                 </div>
             </div>
-            <div class="completed">
-                <div class="app__inner">
-                    <div class="app__header">
-                        <span>Completed tasks</span>
-                    </div>
-                    <ul class="app__items">
-                        {% for completed_task in completed_tasks %}
-                        <li class="app__item app__item--completed">
-                            <div class="item__preview item__preview--completed unselectable">
-                                <span class="item__title item__title--completed">{{ completed_task.title }}</span>
-                                <p class="item__datetime">{{ completed_task.date|time }}</p>
-                            </div>
-                        </li>
-                        {% empty %}
-                        <li class="app__item app__item--completed">
-                            <div class="item__preview item__preview--completed unselectable">
-                                <p class="item__title">No completed tasks</p>
-                            </div>
-                        </li>
-                        {% endfor %}
-                    </ul>
+            <div class="app__completed">
+                <div class="app__header">
+                    <span>Completed tasks</span>
+                    <a class="app__clear-btn" href="{% url 'main:clear-task' %}">Clear all</a>
                 </div>
+                <ul class="app__items">
+                    {% for completed_task in completed_tasks %}
+                        <a class="task task_completed" href="{% url 'main:recovery-task' completed_task.pk %}">
+                            <div class="task__preview task__preview_completed unselectable">
+                                <p class="task__recovery">
+                                    <span>Recovery</span>
+                                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                                         xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                         viewBox="0 0 490.693 490.693"
+                                         style="enable-background:new 0 0 490.693 490.693;"
+                                         xml:space="preserve">
+                                    <g>
+                                        <g>
+                                            <path d="M351.173,149.227H36.4L124.827,60.8c4.053-4.267,3.947-10.987-0.213-15.04c-4.16-3.947-10.667-3.947-14.827,0
+			L3.12,152.427c-4.16,4.16-4.16,10.88,0,15.04l106.667,106.667c4.267,4.053,10.987,3.947,15.04-0.213
+			c3.947-4.16,3.947-10.667,0-14.827L36.4,170.56h314.773c65.173,0,118.187,57.387,118.187,128s-53.013,128-118.187,128h-94.827
+			c-5.333,0-10.133,3.84-10.88,9.067c-0.96,6.613,4.16,12.267,10.56,12.267h95.147c76.907,0,139.52-66.987,139.52-149.333
+			S428.08,149.227,351.173,149.227z"/>
+                                        </g>
+                                    </g>
+                                </svg>
+                                </p>
+                                <span class="task__title task__title_completed">{{ completed_task.title }}</span>
+                            </div>
+                        </a>
+                    {% empty %}
+                        <li class="task">
+                            <div class="task__preview">
+                                <span class="task__empty">No completed task yet</span>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
             </div>
         </div>
     </main>
-    <section class="modal__section">
-        <div class="modal">
-            <div class="modal__content">
-                <form class="modal__form" action="" method="post">
-                    {% csrf_token %}
-                    <p class="modal__text">Are you sure you want to delete this task?</p>
-                    <hr>
-                    <button class="modal__btn" type="submit" name="remove-task">Yes</button>
-                    <button class="modal__btn" type="button" onclick="modal.classList.toggle('modal__show')"
-                        value="no">No</button>
-                </form>
-            </div>
-        </div>
-    </section>
 
-    <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/modal.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/utils/letterCounter.js' %}"></script>
-</body>
+    {% include './layouts/_remove-modal.html' %}
 
-</html>
+    <script type="text/javascript" src="{% static 'main/js/app.min.js' %}"></script>
+
+{% endblock %}

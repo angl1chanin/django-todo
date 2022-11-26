@@ -43,11 +43,4 @@
     block-size: 100%;
     inline-size: 100%;
   }
-  
-  @media (orientation: landscape) {
-    body {
-      grid-auto-flow: column;
-    }
-  }
-  
 }

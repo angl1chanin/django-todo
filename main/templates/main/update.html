@@ -1,41 +1,51 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{% static 'styles/css/update.min.css' %}">
-  <title>Edit task</title>
-</head>
+{% block content %}
+    <header class="header">
+        <div class="container">
+            <p class="header__title title">edit task</p>
+        </div>
+    </header>
 
-<body>
-  <header>
-    <div class="container">
-      <div class="header__title title">edit task</div>
-    </div>
-  </header>
-  <main>
-    <div class="container">
-      <div class="form-wrapper">
-        <form class="form" action="" method="post">
-            {% csrf_token %}
-          <label for="">Title</label>
-            {{ form.title }}
-{#          <input class="form__title" name="title" type="text" placeholder="Task title" minlength="3" maxlength="36">#}
-          <p data-title-number>0/36</p>
-          <label for="">Description</label>
-            {{ form.description }}
-{#          <textarea class="form-desc" name="description" data-autoresize contenteditable placeholder="What about this task" maxlength="200"></textarea>#}
-          <p data-description-number>0/200</p>
-          <button type="submit">Save</button>
-        </form>
-      </div>
-    </div>
-  </main>
+    <main>
+        <div class="container">
 
-  <script type="text/javascript" src="{% static 'js/utils/letterCounter.js' %}"></script>
-</body>
+            <div style="position: absolute;left: 50%;transform: translateX(-50%);">
+                <div style="margin-bottom: 2rem;">
+                <a href="{{ request.META.HTTP_REFERER }}">
+                    <svg width="24" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                         x="0px"
+                         y="0px"
+                         viewBox="0 0 384.97 384.97" style="enable-background:new 0 0 384.97 384.97;"
+                         xml:space="preserve">
+                        <g>
+                            <g id="Chevron_Left_Circle">
+                                <path d="M192.485,0C86.185,0,0,86.185,0,192.485C0,298.797,86.173,384.97,192.485,384.97S384.97,298.797,384.97,192.485
+                                    C384.97,86.185,298.797,0,192.485,0z M192.485,361.282c-92.874,0-168.424-75.923-168.424-168.797S99.611,24.061,192.485,24.061
+                                    s168.424,75.55,168.424,168.424S285.359,361.282,192.485,361.282z"/>
+                                <path d="M235.878,99.876c-4.704-4.74-12.319-4.74-17.011,0l-83.009,84.2c-4.572,4.62-4.584,12.56,0,17.191l82.997,84.2
+                                    c4.704,4.74,12.319,4.74,17.011,0c4.704-4.752,4.704-12.439,0-17.191l-74.528-75.61l74.54-75.61
+                                    C240.57,112.315,240.57,104.628,235.878,99.876z"/>
+                            </g>
+                        </g>
+                    </svg>
+                </a>
+                </div>
+                <form class="form-create" name="create_task" action="" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="task_create" value="null">
+                    <label for="{{ form.title.id_for_label }}">Title</label>
+                    {{ form.title }}
+                    <p data-title-number>0/36</p>
+                    <label for="{{ form.description.id_for_label }}">Description</label>
+                    {{ form.description }}
+                    <p data-description-number>0/200</p>
+                    <button type="submit">Add</button>
+                </form>
+            </div>
+        </div>
+    </main>
 
-</html>
+    <script type="text/javascript" src="{% static 'main/js/app.min.js' %}"></script>
+{% endblock %}

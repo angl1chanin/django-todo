@@ -1,0 +1,11 @@
+@mixin app_window {
+  border-radius: 10px 10px 0 0;
+  background-color: #fafbfd;
+  -webkit-box-shadow: 5px 5px 15px -2px rgba(139, 139, 139, 0.8);
+  box-shadow: 5px 5px 15px -2px rgba(139, 139, 139, 0.8);
+}
+
+@mixin clear_button {
+  border: none;
+  background-color: transparent;
+}

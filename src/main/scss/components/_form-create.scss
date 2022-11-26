@@ -45,11 +45,14 @@
     font-size: 12px;
   }
   button {
+    font-weight: 300;
+    font-size: 1.4rem;
+    color: var(--text-color);
+    background-color: var(--white-color);
     margin-top: 10px;
     padding: 10px;
-    background-color: #fff;
     border-radius: 5px;
     border: none;
-    background-color: #fafbfd;
+    cursor: pointer;
   }
 }

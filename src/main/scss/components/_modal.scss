@@ -1,22 +1,22 @@
 .modal {
+  display: none;
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.85);
+  width: 100%;
+  height: 100%;
 
   &__show {
     display: block !important;
   }
 
   &__section {
-    display: none;
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    background-color: rgba(0, 0, 0, 0.85);
-    width: 100%;
-    height: 100%;
   }
 
   &__content {
@@ -28,7 +28,7 @@
 
   &__text {
     padding: 5px 20px;
-    background-color: #f8d57e;
+    background: var(--accent-color);
     border-radius: 10px;
     color: #000;
     margin-bottom: 10px;
@@ -48,15 +48,17 @@
   &__btn {
     padding: 5px 20px;
     border: none;
-    background-color: #f8d57e;
+    color: var(--black-color);
+    text-decoration: none;
+    background: var(--accent-color);
     border-radius: 10px;
     margin-right: 10px;
-    font-family: inherit;
-    font-size: inherit;
-    transition: background-color 0.3s linear;
+    transition: box-shadow 0.3s linear, transform 0.3s linear;
+    display: inline-block;
 
     &:hover {
-      background-color: #febb10;
+      box-shadow: var(--hover-shadow);
+      transform: translateY(-.2rem);
       cursor: pointer;
     }
 
