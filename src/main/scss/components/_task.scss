@@ -1,0 +1,105 @@
+.task {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  color: #000;
+  border-bottom: 1px solid rgb(218, 218, 218);
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &__preview {
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    padding: 20px;
+
+    //TODO: change modificator to underscore
+    &--completed {
+      justify-content: flex-end;
+
+      &::before {
+        display: none;
+      }
+    }
+
+    &::before {
+      content: '';
+      width: 5px;
+      height: 0;
+      background-color: #f8d57e;
+      transition: all 0.3s ease;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    &:hover::before {
+      height: 100%;
+    }
+  }
+
+  &__title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    // width: 100%;
+    text-align: center;
+    color: #000;
+
+    &_completed {
+      text-decoration: line-through;
+    }
+  }
+
+  &__manage {
+    display: flex;
+    align-items: center;
+    column-gap: 20px;
+
+    &_desktop {
+      @media (max-width: 768px) {
+        display: none;
+      }
+    }
+  }
+
+  &__icon {
+    width: 18px;
+    height: 18px;
+    transition: all 0.3s ease-in-out;
+  }
+
+  &__edit-btn {
+    cursor: pointer;
+  }
+
+  &__remove-btn {
+    background-color: #fff;
+    border: none;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+  }
+
+  &__datetime {
+    position: relative;
+  }
+
+  &__description {
+    max-height: 0;
+    overflow: hidden;
+    background-color: #bbbbbb;
+    transition: all 0.3s ease-in-out;
+
+    li {
+      padding: 10px 20px;
+      list-style-type: none;
+    }
+
+    p {
+      word-break: break-all;
+    }
+  }
+}

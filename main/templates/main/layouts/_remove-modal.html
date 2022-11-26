@@ -1,0 +1,16 @@
+<section class="modal">
+  <div class="modal__section">
+    <div class="modal__content">
+      <form class="modal__form" action="" method="post">
+        {% csrf_token %}
+
+        <p class="modal__text">Are you sure you want to delete this task?</p>
+        <hr>
+        <button class="modal__btn" type="submit" name="remove-task">Yes</button>
+        <button class="modal__btn" type="button" onclick="modal.classList.toggle('modal__show')" value="no">No
+        </button>
+        <input type="hidden" name="task_remove" value="null">
+      </form>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,19 @@
+{
+  "name": "django-todo",
+  "version": "1.0.1",
+  "description": "Django CRUD web-application ",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/slicetopieces/todoapp-django.git"
+  },
+  "author": "angl1chanin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/slicetopieces/todoapp-django/issues"
+  },
+  "homepage": "https://github.com/slicetopieces/todoapp-django#readme"
+}

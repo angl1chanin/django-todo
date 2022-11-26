@@ -1,0 +1,42 @@
+.user {
+  position: relative;
+  transition: all 0.3s linear;
+
+  &:hover {
+    z-index: 3;
+    color: #fff;
+  }
+
+  &__name {
+    position: relative;
+    z-index: 3;
+  }
+
+  &__content {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.85);
+    padding: 60px 20px 20px 20px;
+    border-radius: 10px;
+    top: -5px;
+    left: -10px;
+    min-width: 120%;
+    z-index: -1;
+
+    a {
+      text-decoration: none;
+      outline: none;
+      color: #000;
+      background-color: #f8d57e;
+      padding: 5px;
+      border-radius: 10px;
+      transition: background-color 0.3s linear;
+      position: relative;
+      left: -5px;
+
+      &:hover {
+        background-color: #febb10;
+        cursor: pointer;
+      }
+    }
+  }
+}
