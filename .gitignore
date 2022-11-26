@@ -1,7 +1,11 @@
+.DS_Store
 *.pyc  
 *~  
-__pycache__ /
+__pycache__/
 */__pycache__
 .DS_Store
 venv/
 .idea/
+*.log
+*.pot
+db.sqlite3
