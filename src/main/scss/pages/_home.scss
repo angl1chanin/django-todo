@@ -15,6 +15,7 @@
   }
 
   &__header {
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -99,6 +100,9 @@
     font-weight: 300;
     font-size: 16px;
     text-transform: uppercase;
+
+    position: absolute;
+    right: 20px;
 
     background-color: var(--white-color);
     color: var(--text-color);
