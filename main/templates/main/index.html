@@ -87,7 +87,9 @@
             <div class="app__completed">
                 <div class="app__header">
                     <span>Completed tasks</span>
-                    <a class="app__clear-btn" href="{% url 'main:clear-task' %}">Clear all</a>
+                    {% if completed_tasks.exists %}
+                        <a class="app__clear-btn" href="{% url 'main:clear-task' %}">Clear all</a>
+                    {% endif %}
                 </div>
                 <ul class="app__items">
                     {% for completed_task in completed_tasks %}
