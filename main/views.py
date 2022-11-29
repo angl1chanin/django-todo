@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from django.views.generic import ListView, UpdateView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 
 from main.models import Task
 from main.forms import TaskForm
-from main.mixins import IsOwnerMixin  # TODO: Make a decorator for 'owner' method
+from main.decorators import is_owner
 
 
 class Home(ListView, LoginRequiredMixin):
@@ -45,56 +45,42 @@ class Clear(Home):
         return redirect('main:home')
 
 
-class Delete(Home, IsOwnerMixin):
+class Delete(Home):
+    @is_owner
     def get(self, request, *args, **kwargs):
-        self.instance = get_object_or_404(self.model, pk=self.kwargs.get('pk'))
+        instance = get_object_or_404(self.model, pk=self.kwargs.get('pk'))
+        instance.delete()
 
-        if isinstance(result := self.owner(), HttpResponse):
-            return result
-
-        self.instance.delete()
-
-        return redirect('main:home')
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
-class Complete(Home, IsOwnerMixin):
+class Complete(Home):
+    @is_owner
     def get(self, request, *args, **kwargs):
-        self.instance = get_object_or_404(self.model, pk=self.kwargs.get('pk'))
+        instance = get_object_or_404(self.model, pk=self.kwargs.get('pk'))
+        instance.complete = True
+        instance.save()
 
-        if isinstance(result := self.owner(), HttpResponse):
-            return result
-
-        self.instance.complete = True
-        self.instance.save()
-
-        return redirect('main:home')
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
-class Recovery(Home, IsOwnerMixin):
+class Recovery(Home):
+    @is_owner
     def get(self, request, *args, **kwargs):
-        self.instance = get_object_or_404(self.model, pk=self.kwargs.get('pk'))
+        instance = get_object_or_404(self.model, pk=self.kwargs.get('pk'))
+        instance.complete = False
+        instance.save()
 
-        if isinstance(result := self.owner(), HttpResponse):
-            return result
-
-        self.instance.complete = False
-        self.instance.save()
-
-        return redirect('main:home')
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
-class Update(UpdateView, LoginRequiredMixin, IsOwnerMixin):
+class Update(UpdateView, LoginRequiredMixin):
     model = Task
     form_class = TaskForm
     template_name = 'main/update.html'
     success_url = reverse_lazy('main:home')
 
+    @is_owner
     def get(self, request, *args, **kwargs):
         super(Update, self).get(request)
-
-        self.instance = get_object_or_404(self.model, pk=self.kwargs.get('pk'))
-
-        if isinstance(result := self.owner(), HttpResponse):
-            return result
-
         return super().get(request, *args, **kwargs)
