@@ -7,7 +7,7 @@ Django v4.0.6
 ## Installation
 
 ```bash
-  git clone https://github.com/slicetopieces/django-todo.git
+  git clone https://github.com/angl1chanin/django-todo.git
   cd django-todo
   pip install -r requirements.txt
   python manage.py runserver
